@@ -1,0 +1,38 @@
+main screen
+- login/signup button (top right?)
+- about section button
+- features
+- sample ss of how it actually looks
+
+login screen
+- login with OAuth
+
+after login
+- determine first time user or not
+
+first time user:
+ - ask about age, height, weight, bodyfat(optional), activity levels(Sedentary <5,000 steps/day. Low active is 5,000 to 7,499 steps per day. Somewhat active is 7,500 to 9,999 steps per day. Active is more than 10,000 steps per day., sex
+ - ask about their goal (pick options: gain weight, lose weight, maintain, undetermined)
+ - provide reccommendation if not undetermined
+ - regular page show
+
+returning user:
+ - shows dashboard
+ - calories tracked(reset daily)
+	- target calories, calories you have left
+ - button that takes you to update user inforamtion
+ - show pie chart for macro/micro intake
+ - weight graph
+ - calories consumned
+ - button to update calorie tracker(new page/popup)
+
+
+update calories tracker page/popup
+ - search for food -> use the food database api
+	- if multiple returns, display them, let user pick one
+        - else let user select serving unit and serving size
+
+ - add own food -> calories, default serving size, nutrition info
+ - add food to calories -> serving size eaten, select from custom or searched food
+ - submit button, should update daily calories, macro graph, etc.
+
