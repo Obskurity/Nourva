@@ -1,0 +1,26 @@
+mongodb:
+
+was thinking of adding foreign key in user(i.e, food) but makes me think if we should use relational vs non relational
+
+food:
+ - name
+ - calories(mandatory)
+ - serving size (g, lbs, oz, ml, etc.)
+ - fat(saturated and unsaturated breakdown)?
+ - carbs
+ - protein
+ - (micronutrients???) -> dont add for now
+ - other macros(nutrients) -> discuss later
+ - created by(xyz) -> instead of foreign key
+
+user:
+ - height
+ - weight
+ - bodyfat(optional)
+ - calorie goal
+
+
+weight:
+ - user
+ - trackers user's weight each time they log it
+
