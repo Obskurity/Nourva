@@ -1,7 +1,11 @@
 const Home = () => {
+    const subtitle = "Prioritizing Your Health: the Ultimate Nutrition Tracking App!"
     return (
-        <div>
-            <p> Welcome </p>
+        <div className = "Home">
+            <div className = 'content'>
+                <h1>{ subtitle }</h1>
+            </div>
+
         </div>
     );
 };
