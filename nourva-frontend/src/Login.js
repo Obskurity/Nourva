@@ -16,7 +16,7 @@ export default function Login() {
             <div class="container2">
                 <label>Don't have an account? &nbsp</label>
                 <a href="https://www.google.com/"> Sign Up</a>
-            </div>
+        </div>
         </>
     )
 }
