@@ -1,5 +1,5 @@
 const Home = () => {
-    const subtitle = "Prioritizing Your Health: the Ultimate Nutrition Tracking App!"
+    const subtitle = "Prioritizing Your Health: The Ultimate Nutrition Tracking App!"
     return (
         <div className = "Home">
             <div className = 'content'>

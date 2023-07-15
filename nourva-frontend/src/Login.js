@@ -15,7 +15,7 @@ export default function Login() {
             <br></br>
             <div class="container2">
                 <label>Don't have an account? &nbsp;</label>
-                <a href="https://www.google.com/"> Sign Up</a>
+                <a href="/signup">Sign Up</a>
         </div>
         </>
     )
