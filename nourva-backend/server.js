@@ -61,8 +61,6 @@ app.post('/login', async (req, res) => {
   // Find the user by username
   const user = await db.collection('users').findOne({ username });
 
-  console.log(user.password);
-
   // If user doesn't exist or password is incorrect, return an error
   if (!user || !(await bcrypt.compare(password, user.password))) {
     return res.status(401).json({ error: 'Invalid username or password' });
