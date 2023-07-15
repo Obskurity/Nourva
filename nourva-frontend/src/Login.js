@@ -11,10 +11,10 @@ export default function Login() {
                     <input type="password" name="password" placeholder="Password" required />
                     <button type="submit" value="Login">Login</button>
                 </form>
-
             </div>
+            <br></br>
             <div class="container2">
-                <label>Don't have an account? &nbsp</label>
+                <label>Don't have an account? &nbsp;</label>
                 <a href="https://www.google.com/"> Sign Up</a>
         </div>
         </>
