@@ -1,6 +1,3 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
-
 /.vs/VSWorkspaceState.json
 /.vs/Nourva/v17/.suo
+/nourva-backend/.env
