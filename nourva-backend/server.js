@@ -1,9 +1,10 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://NourvaAdmin:LF2XdE9yQ0VIvgcH@nourvadb.n2xhvgn.mongodb.net/?retryWrites=true&w=majority";
-
+const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}}@nourvadb.n2xhvgn.mongodb.net/?retryWrites=true&w=majority`;
+console.log(uri);
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
   serverApi: {
