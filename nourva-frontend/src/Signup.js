@@ -1,48 +1,76 @@
-import './Login.css'
-import { useState, useRef } from 'react'
-
+import React, { useState } from 'react';
+import './Login.css';
 
 export default function Signup() {
-    const password1 = useRef()
-    const password2 = useRef()
-    const btnSubmit = useRef()
-    const notMatching = useRef()
-    function checkPass(e) {
+    const [password1, setPassword1] = useState('');
+    const [password2, setPassword2] = useState('');
+    const [passwordsMatch, setPasswordsMatch] = useState(true);
 
-        const p1 = password1.current.value
-        const p2 = password2.current.value
-    
-        if (p1 !== p2){
-            notMatching.current.value = "Passwords do not match!"
-        }
-        else{
+    const handlePassword1Change = (e) => {
+        setPassword1(e.target.value);
+        setPasswordsMatch(e.target.value === password2);
+    };
 
+    const handlePassword2Change = (e) => {
+        setPassword2(e.target.value);
+        setPasswordsMatch(e.target.value === password1);
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (password1 !== password2) {
+            setPasswordsMatch(false);
+            return;
         }
-        
-    }
+        // Passwords match, continue with form submission or other logic
+        // ...
+    };
+
     return (
         <>
-
-            <div id="userInfo" class="container">
+            <div id="userInfo" className="container">
                 <h2>Sign Up</h2>
-                <form>
-                    <input  type="text" name="username" placeholder="Username" required />
+                <form onSubmit={handleSubmit}>
+                    <input
+                        type="text"
+                        name="username"
+                        placeholder="Username"
+                        required
+                    />
+                    <br />
+                    <input
+                        type="password"
+                        name="password1"
+                        placeholder="Password"
+                        value={password1}
+                        onChange={handlePassword1Change}
+                        required
+                    />
+                    <br />
+
+                    <input
+                        type="password"
+                        name="password2"
+                        placeholder="Confirm Password"
+                        value={password2}
+                        onChange={handlePassword2Change}
+                        required
+                    />
+        
+                    {!passwordsMatch && (
+                        <label style={{ color: 'red' }}>Passwords do not match! <br></br></label>
+                    )}
                     <br></br>
-                    <input ref={password1} type="password" name="password1" placeholder="Password" required />
-                    <br></br>
-                    <input ref={password2} type="password" name="password2" placeholder="Confirm Password" required />
-                    <br></br>
-                    <button ref={btnSubmit} id="btnSubmit"  value="Login" onClick={checkPass}>Create Account</button>
-                    <br></br>
-                    <label ref={notMatching}></label>
+                    <button type="submit" id="btnSubmit" disabled={!passwordsMatch}>
+                        Create Account
+                    </button>
                 </form>
             </div>
-            <br></br>
-            <div class="container2">
+            <br />
+            <div className="container2">
                 <label>Already have an account? &nbsp;</label>
                 <a href="/login">Login</a>
             </div>
         </>
-
-    )
+    );
 }
