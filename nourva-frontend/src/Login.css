@@ -31,7 +31,7 @@
     box-sizing: border-box;
 }
 
-.container button[type="submit"] {
+.container button{
     background-color: #4c53af;
     color: white;
     padding: 10px 30px;
