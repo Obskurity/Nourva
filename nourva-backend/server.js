@@ -3,6 +3,8 @@ const app = express()
 require("dotenv").config();
 app.use(express.json());
 const bcrypt = require('bcrypt');
+var cors = require('cors');
+app.use(cors());
 
 var db;
 
@@ -68,6 +70,8 @@ app.post('/login', async (req, res) => {
 
   // User authenticated successfully, generate a JWT
   // const token = jwt.sign({ userId: user._id }, 'your-secret-key');
+
+  console.log("post request successful");
 
   res.json({ message: 'User loggged in successfully' });
 });
