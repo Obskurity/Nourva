@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Login.css';
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 export default function Signup() {
     const [password1, setPassword1] = useState('');
@@ -17,6 +18,9 @@ export default function Signup() {
         setPasswordsMatch(e.target.value === password1);
     };
 
+    var userExists = false;
+    const navigate = useNavigate();
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if (password1 !== password2) {
@@ -31,10 +35,20 @@ export default function Signup() {
             password: passW
         }).then((response) => {
             if(response.status === 200){
+                document.getElementById("username").value = '';
+                document.getElementById("password").value = '';
+                document.getElementById("secondPassword").value = '';   
+                
+                setTimeout(() => {
+                    // Replace '/main-page' with the actual path to your main page
+                    navigate('/user-initiation');
+                  }, 1000);       
+            }
+            else{
                 
             }
-            console.log(response);
-        });  
+            console.log(response);        
+        });
     };
 
     return (
@@ -65,6 +79,7 @@ export default function Signup() {
                         type="password"
                         name="password2"
                         placeholder="Confirm Password"
+                        id="secondPassword"
                         value={password2}
                         onChange={handlePassword2Change}
                         required
@@ -72,6 +87,9 @@ export default function Signup() {
         
                     {!passwordsMatch && (
                         <label style={{ color: 'red' }}>Passwords do not match! <br></br></label>
+                    )}
+                    {userExists && (
+                        <label style={{ color: 'red' }}>User already exists. Choose a different username! <br></br></label>
                     )}
                     <br></br>
                     <button type="submit" id="btnSubmit" disabled={!passwordsMatch}>
