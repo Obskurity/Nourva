@@ -12,7 +12,7 @@ export default function Login() {
         const uName = document.getElementById("username").value;
         const passW = document.getElementById("password").value;
 
-        axios.post("http://127.0.0.1:5000/login", {
+        axios.post(reqLink, {
             username: uName,
             password: passW
         }).then((response) => {

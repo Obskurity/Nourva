@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Login.css';
+import axios from "axios";
 
 export default function Signup() {
     const [password1, setPassword1] = useState('');
@@ -22,8 +23,18 @@ export default function Signup() {
             setPasswordsMatch(false);
             return;
         }
-        // Passwords match, continue with form submission or other logic
-        // ...
+        const uName = document.getElementById("username").value;
+        const passW = document.getElementById("password").value;
+
+        axios.post("http://127.0.0.1:5000/register", {
+            username: uName,
+            password: passW
+        }).then((response) => {
+            if(response.status === 200){
+                
+            }
+            console.log(response);
+        });  
     };
 
     return (
@@ -34,6 +45,7 @@ export default function Signup() {
                     <input
                         type="text"
                         name="username"
+                        id="username"
                         placeholder="Username"
                         required
                     />
@@ -42,6 +54,7 @@ export default function Signup() {
                         type="password"
                         name="password1"
                         placeholder="Password"
+                        id="password"
                         value={password1}
                         onChange={handlePassword1Change}
                         required
