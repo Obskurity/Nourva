@@ -31,9 +31,11 @@ export default function Signup() {
             password: passW
         }).then((response) => {
             if(response.status === 200){
-                
+                document.getElementById("username").value = '';
+                document.getElementById("password").value = '';
+                document.getElementById("secondPassword").value = '';         
             }
-            console.log(response);
+            console.log(response);        
         });  
     };
 
@@ -65,6 +67,7 @@ export default function Signup() {
                         type="password"
                         name="password2"
                         placeholder="Confirm Password"
+                        id="secondPassword"
                         value={password2}
                         onChange={handlePassword2Change}
                         required
