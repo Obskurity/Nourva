@@ -44,17 +44,28 @@ app.get("/", (req, res) => {
 app.post('/register', async (req, res) => {
   const { username, password } = req.body;
 
-  console.log(req.body);
+  const user = await db.collection('users').findOne({ username });
 
-  // Hash the password using bcrypt
-  const salt = bcrypt.genSaltSync(10);
-  const hash = bcrypt.hashSync(password, salt);
-  // Store hash in your password DB.
+  if (!user){
+    // Hash the password using bcrypt
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(password, salt);
+    // Store hash in your password DB.
 
-  // Insert the user into the database
-  const result = await db.collection('users').insertOne({ username, password: hash });
+    // Insert the user into the database
+    const result = await db.collection('users').insertOne({ username, password: hash });
+    const userN = {name: username};
 
-  res.json({ message: 'User registered successfully' });
+    // User authenticated successfully, generate a JWT
+    const accessToken = generateAccessToken(userN);
+    const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
+    refreshTokens.push(refreshToken);
+
+  res.json({message: "User registered sucessfully", accessToken: accessToken, refreshToken: refreshToken});
+  }
+  else{
+    res.sendStatus(403);
+  } 
 });
 
 // Route to handle user login
@@ -95,8 +106,8 @@ function authenticateToken(req, res, next){
 }
 
 // replace /path with whatever is supposed to get access to
-app.get('/path', authenticateToken, (req, res) => {
-  //req.headers['someHeader'] = 'someValue'
+app.get('/query-foods', authenticateToken, (req, res) => {
+  
 })
 
 
