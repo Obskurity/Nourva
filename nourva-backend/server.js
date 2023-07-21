@@ -58,10 +58,10 @@ app.post('/register', async (req, res) => {
 
     // User authenticated successfully, generate a JWT
     const accessToken = generateAccessToken(userN);
-    const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
-    refreshTokens.push(refreshToken);
+    //const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
+    // refreshTokens.push(refreshToken);
 
-  res.json({message: "User registered sucessfully", accessToken: accessToken, refreshToken: refreshToken});
+  res.json({message: "User registered sucessfully", accessToken: accessToken});
   }
   else{
     res.sendStatus(403);

@@ -141,10 +141,11 @@ export default function UserInitiation() {
             onChange={(event) => setActivityLevel(event.target.value)}
             >
             <option value="">Select activity level</option>
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-            <option value="very high">Very High</option>
+            <option value="1.2" selected="">Sedentary (office job)</option>
+			      <option value="1.375">Light Exercise (1-2 days/week)</option>
+			      <option value="1.55">Moderate Exercise (3-5 days/week)</option>
+			      <option value="1.725">Heavy Exercise (6-7 days/week)</option>
+			      <option value="1.9">Athlete (2x per day) </option>
             </select>
 
 

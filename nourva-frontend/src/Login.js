@@ -6,6 +6,8 @@ const reqLink = "http://127.0.0.1:5000/login";
 
 export default function Login() {
 
+    const LOCAL_STORAGE_KEY = "Nourva.AT";
+
     function handleOnClick(e){
         e.preventDefault();
 
@@ -17,7 +19,7 @@ export default function Login() {
             password: passW
         }).then((response) => {
             if(response.status === 200){
-                
+                localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(response.accessToken));
             }
             console.log(response);
         });  

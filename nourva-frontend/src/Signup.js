@@ -8,6 +8,8 @@ export default function Signup() {
     const [password2, setPassword2] = useState('');
     const [passwordsMatch, setPasswordsMatch] = useState(true);
 
+    const LOCAL_STORAGE_KEY = "Nourva.AT";
+
     const handlePassword1Change = (e) => {
         setPassword1(e.target.value);
         setPasswordsMatch(e.target.value === password2);
@@ -37,12 +39,13 @@ export default function Signup() {
             if(response.status === 200){
                 document.getElementById("username").value = '';
                 document.getElementById("password").value = '';
-                document.getElementById("secondPassword").value = '';   
-                
+                document.getElementById("secondPassword").value = '';
+
+                localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(response.accessToken));
+
                 setTimeout(() => {
-                    // Replace '/main-page' with the actual path to your main page
                     navigate('/user-initiation');
-                  }, 1000);       
+                }, 3000);       
             }
             else{
                 
