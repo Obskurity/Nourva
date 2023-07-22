@@ -13,6 +13,7 @@ const AddFoodPopup = ({ onClose, onAddFood }) => {
     };
 
     return (
+        <div className='overlay'>
         <div className="popup">
             <h2>Add a Food</h2>
             <form>
@@ -27,9 +28,8 @@ const AddFoodPopup = ({ onClose, onAddFood }) => {
                         value={measurement}
                         onChange={(e) => setMeasurement(e.target.value)}
                     />
-                    <label>
-                        g
-                    </label>
+                    <label>g<br></br></label>
+
                 </label>
                 <label>
                     Calories:
@@ -51,6 +51,7 @@ const AddFoodPopup = ({ onClose, onAddFood }) => {
                     </button>
                 </div>
             </form>
+        </div>
         </div>
     );
 };

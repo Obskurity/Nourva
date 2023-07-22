@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import AddFoodPopup from './AddFoodPopup';
+import './NutrientTracking.css'
 
 const Header = (onAddFood) => {
     const axios = require('axios');
@@ -33,31 +34,37 @@ const Header = (onAddFood) => {
     // }
     return (
         <div>
-            {/* Search bar */}
-            <input type="text" placeholder="Search for foods..." onChange={(e) => handleSearch(e.target.value)} />
-            {/* Table to display search results */}
-            {/* Table headers */}
-            {/* <button name="addFood" type="submit" value="Add a Food" onClick={handleAddFood} /> */}
-            <table>
-                <thead>
-                    <tr>
-                        <th>Food</th>
-                        <th>Measurement</th>
-                        <th>Calories</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {searchResults.map((food, index) => (
-                        <tr key={index}>
-                            <td>{food.name}</td>
-                            <td>{food.measurement} g</td>
-                            <td>{food.calories} cals</td>
+            <div className="container2">
+                {/* Search bar */}
+                <input type="text" placeholder="Search for foods..." onChange={(e) => handleSearch(e.target.value)} />
+                {/* Table to display search results */}
+                {/* Table headers */}
+                {/* <button name="addFood" type="submit" value="Add a Food" onClick={handleAddFood} /> */}
+
+                <button onClick={onAddFood.onAddFood}>Add Food</button>
+            </div>
+            <div className='tableContainer'>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Food</th>
+                            <th>Measurement</th>
+                            <th>Calories</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
-            <button onClick={onAddFood.onAddFood}>Add Food</button>
+                    </thead>
+                    <tbody>
+                        {searchResults.map((food, index) => (
+                            <tr key={index}>
+                                <td>{food.name}</td>
+                                <td>{food.measurement} g</td>
+                                <td>{food.calories} cals</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
+
     );
 };
 
