@@ -8,10 +8,12 @@ import AddFoodPopup from './AddFoodPopup'
 export default function NutrientTracking() {
     const [showPopup, setShowPopup] = useState(false);
 
-    const handleAddFood = (foodName, measurement) => {
+
+    const handleAddFood = (foodName, measurement, calories) => {
         // Handle the food addition logic here (e.g., API calls or updating state)
         console.log('Food Name:', foodName);
         console.log('Measurement:', measurement);
+        console.log('Calories:', calories);
     };
 
     return (
