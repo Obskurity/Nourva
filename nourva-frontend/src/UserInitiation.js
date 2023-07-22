@@ -161,7 +161,6 @@ export default function UserInitiation() {
               inputMode="numeric"
               value={bodyFat}
               onChange={(event) => setBodyFat(event.target.value)}
-              required
             />
 
             <label htmlFor="activityLevel">Activity Level:</label>
