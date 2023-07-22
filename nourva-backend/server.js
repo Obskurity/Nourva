@@ -84,12 +84,13 @@ app.post('/login', async (req, res) => {
 
   // User authenticated successfully, generate a JWT
   const accessToken = generateAccessToken(userN);
-  const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
-  refreshTokens.push(refreshToken);
+  //const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
+  //refreshTokens.push(refreshToken);
 
   console.log("post request successful");
 
-  res.json({accessToken: accessToken, refreshToken: refreshToken});
+  //res.json({accessToken: accessToken, refreshToken: refreshToken});
+  res.json({accessToken: accessToken});
 });
 
 function authenticateToken(req, res, next){
@@ -102,14 +103,12 @@ function authenticateToken(req, res, next){
     req.user = user;
     next();
   });
-
 }
 
 // replace /path with whatever is supposed to get access to
 app.get('/query-foods', authenticateToken, (req, res) => {
   
 })
-
 
 function generateAccessToken(user){
   return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '30d'});
