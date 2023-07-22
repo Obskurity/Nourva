@@ -38,7 +38,7 @@ async function run() {
 run().catch(console.dir);
 
 app.get("/", (req, res) => {
-    res.send("Hello World!")
+  res.send("Hello World!")
 })
 
 app.post('/register', async (req, res) => {
@@ -46,7 +46,7 @@ app.post('/register', async (req, res) => {
 
   const user = await db.collection('users').findOne({ username });
 
-  if (!user){
+  if (!user) {
     // Hash the password using bcrypt
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(password, salt);
@@ -54,18 +54,18 @@ app.post('/register', async (req, res) => {
 
     // Insert the user into the database
     const result = await db.collection('users').insertOne({ username, password: hash });
-    const userN = {name: username};
+    const userN = { name: username };
 
     // User authenticated successfully, generate a JWT
     const accessToken = generateAccessToken(userN);
     //const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
     // refreshTokens.push(refreshToken);
 
-  res.json({message: "User registered sucessfully", accessToken: accessToken});
+    res.json({ message: "User registered sucessfully", accessToken: accessToken });
   }
-  else{
+  else {
     res.sendStatus(403);
-  } 
+  }
 });
 
 // Route to handle user login
@@ -80,25 +80,23 @@ app.post('/login', async (req, res) => {
     return res.status(401).json({ error: 'Invalid username or password' });
   }
 
-  const userN = {name: username};
+  const userN = { name: username };
 
   // User authenticated successfully, generate a JWT
   const accessToken = generateAccessToken(userN);
   //const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
   //refreshTokens.push(refreshToken);
 
-  console.log("post request successful");
-
   //res.json({accessToken: accessToken, refreshToken: refreshToken});
-  res.json({accessToken: accessToken});
+  res.json({ accessToken: accessToken, message: "Login sucessful!" });
 });
 
-function authenticateToken(req, res, next){
+function authenticateToken(req, res, next) {
   const token = req.body.authorization;
-  if(token == null) return res.sendStatus(401);
+  if (token == null) return res.sendStatus(401);
 
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-    if(err) return res.sendStatus(403);
+    if (err) return res.sendStatus(403);
     req.user = user;
     next();
   });
@@ -106,47 +104,63 @@ function authenticateToken(req, res, next){
 
 // replace /path with whatever is supposed to get access to
 app.get('/query-foods', authenticateToken, (req, res) => {
-  
+
 })
 
+function calculateTDEE(weight, height, age, sex, bodyfat = 20) {
+  var tdee;
+  if (sex === "male") {
+    tdee = (10 * weight) + (6.25 * height) - (5 * age) + 5;
+  }
+  else if (sex === "female") {
+    tdee = (10 * weight) + (6.25 * height) - (5 * age) - 161;
+  }
+  else {
+    tdee = 370 + (21.6 * (1 - bodyfat)) * weight;
+  }
+  return tdee;
+}
+
 app.post('/addUserData', authenticateToken, (req, res) => {
-  const {authorization, firstName, lastName, age, sex, height, weight, bodyfat, activityLevel, goal} = req.body;
+  const { authorization, firstName, lastName, age, sex, height, weight, bodyfat, activityLevel, goal } = req.body;
 
   var user = jwt.decode(authorization);
-  if(user){
-    const result = db.collection('users').updateOne({username: user.name},
-    {
-      $set: {
-        firstName: firstName,
-        lastName: lastName,
-        age: age,
-        sex: sex,
-        height: height,
-        weight: weight,
-        bodyfat: bodyfat,
-        activityLevel: activityLevel,
-        goal: goal
-      },
-    })
-
+  if (user) {
+    var tdee = calculateTDEE(weight, height, age, sex, bodyfat);
+    const result = db.collection('users').updateOne({ username: user.name },
+      {
+        $set: {
+          firstName: firstName,
+          lastName: lastName,
+          age: age,
+          sex: sex,
+          height: height,
+          weight: weight,
+          bodyfat: bodyfat,
+          activityLevel: activityLevel,
+          goal: goal,
+          tdee: tdee,
+          dailyCalories: 0
+        },
+      })
     res.sendStatus(200);
   };
 })
 
-function generateAccessToken(user){
-  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '30d'});
+function generateAccessToken(user) {
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '30d' });
 }
 
 app.post('/token', (req, res) => {
-  const refreshToken =  req.body.token;
-  if(refreshToken == null) return res.sendStatus(401);
+  const refreshToken = req.body.token;
+  if (refreshToken == null) return res.sendStatus(401);
 
-  if(!refreshTokens.includes(refreshToken)) return res.sendStatus(403);
+  if (!refreshTokens.includes(refreshToken)) return res.sendStatus(403);
 
   jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
     if (err) return res.sendStatus(403);
-    const accessToken = generateAccessToken({ name: user.name});
-    res.json({accessToken: accessToken});
+    const accessToken = generateAccessToken({ name: user.name });
+    res.json({ accessToken: accessToken });
   })
 })
 
@@ -155,6 +169,6 @@ app.delete('/logout', (req, res) => {
   res.sendStatus(204);
 })
 
-app.listen(5000, '127.0.0.1',() => {
-    console.log("Backend server started on port 5000")
+app.listen(5000, '127.0.0.1', () => {
+  console.log("Backend server started on port 5000")
 })

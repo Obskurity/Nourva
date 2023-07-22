@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './UserInitiation.css';
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 export default function UserInitiation() {
   const [firstName, setFirstName] = useState('');
@@ -15,21 +16,24 @@ export default function UserInitiation() {
   const reqLink = "http://127.0.0.1:5000/addUserData";
   const LOCAL_STORAGE_KEY = "Nourva.AT";
 
+  const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     // Perform further processing or validation
     // ...
 
     // Display the input values (optional)
-    console.log(`First Name: ${firstName}`);
-    console.log(`Last Name: ${lastName}`);
-    console.log(`Age: ${age}`);
-    console.log(`Sex: ${sex}`);
-    console.log(`Height: ${height}`);
-    console.log(`Weight: ${weight}`);
-    console.log(`Body Fat: ${bodyFat}`);
-    console.log(`Activity Level: ${activityLevel}`);
-    console.log(`Goal: ${goal}`);
+    // console.log(`First Name: ${firstName}`);
+    // console.log(`Last Name: ${lastName}`);
+    // console.log(`Age: ${age}`);
+    // console.log(`Sex: ${sex}`);
+    // console.log(`Height: ${height}`);
+    // console.log(`Weight: ${weight}`);
+    // console.log(`Body Fat: ${bodyFat}`);
+    // console.log(`Activity Level: ${activityLevel}`);
+    // console.log(`Goal: ${goal}`);
+
     axios.post(reqLink, {
       authorization: localStorage.getItem(LOCAL_STORAGE_KEY),
       firstName: firstName,
@@ -53,6 +57,10 @@ export default function UserInitiation() {
           setBodyFat('');
           setActivityLevel('');
           setGoal('');
+
+          setTimeout(() => {
+            navigate('/nutrient-tracking');
+        }, 3000);       
       }
       console.log(response);
     });  
@@ -83,7 +91,7 @@ export default function UserInitiation() {
               id="firstName"
               value={firstName}
               onChange={(event) => setFirstName(event.target.value)}
-              
+              required         
             />
 
             <label htmlFor="lastName">Last Name:</label>
@@ -92,9 +100,9 @@ export default function UserInitiation() {
               id="lastName"
               value={lastName}
               onChange={(event) => setLastName(event.target.value)}
+              required
               
             />
-
             <label htmlFor="age">Age:</label>
             <input
               type="text"
@@ -103,7 +111,7 @@ export default function UserInitiation() {
               inputMode="numeric"
               value={age}
               onChange={(event) => setAge(event.target.value)}
-              
+              required    
             />
 
             <label htmlFor="sex">Sex:</label>
@@ -111,6 +119,7 @@ export default function UserInitiation() {
             id="sex"
             value={sex}
             onChange={(event) => setSex(event.target.value)}
+            required
             
             >
             <option value="">Select sex</option>
@@ -128,6 +137,7 @@ export default function UserInitiation() {
               inputMode="numeric"
               value={height}
               onChange={(event) => setHeight(event.target.value)}
+              required
               
             />
 
@@ -139,6 +149,7 @@ export default function UserInitiation() {
               inputMode="numeric"
               value={weight}
               onChange={(event) => setWeight(event.target.value)}
+              required
               
             />
 
@@ -157,6 +168,7 @@ export default function UserInitiation() {
             id="activityLevel"
             value={activityLevel}
             onChange={(event) => setActivityLevel(event.target.value)}
+            required
             >
             <option value="">Select activity level</option>
             <option value="1.2" selected="">Sedentary (office job)</option>

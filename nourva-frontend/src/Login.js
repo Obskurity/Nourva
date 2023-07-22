@@ -1,12 +1,15 @@
 import React from 'react'
 import './Login.css'
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 const reqLink = "http://127.0.0.1:5000/login";
 
 export default function Login() {
 
     const LOCAL_STORAGE_KEY = "Nourva.AT";
+
+    const navigate = useNavigate();
 
     function handleOnClick(e){
         e.preventDefault();
@@ -16,10 +19,15 @@ export default function Login() {
 
         axios.post(reqLink, {
             username: uName,
-            password: passW
+            password: passW,
         }).then((response) => {
             if(response.status === 200){
-                localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(response.accessToken));
+                localStorage.setItem(LOCAL_STORAGE_KEY, response.data.accessToken);
+                document.getElementById("username").value = '';
+                document.getElementById("password").value = '';
+                setTimeout(() => {
+                    navigate('/nutrient-tracking');
+                }, 3000);       
             }
             console.log(response);
         });  
