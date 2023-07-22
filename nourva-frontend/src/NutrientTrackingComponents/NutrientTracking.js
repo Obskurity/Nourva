@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import CalorieProgressBar from './CalorieProgressBar'
-import DatePicker from './DatePicker'
 import Header from './Header'
 import QueryFood from './DailyFoods'
 import AddFoodPopup from './AddFoodPopup'
@@ -22,7 +21,6 @@ export default function NutrientTracking() {
             <div style={{ display: 'flex' }}>
                 <QueryFood />
                 <div>
-                    <DatePicker />
                     <CalorieProgressBar goal={2000} consumed={1500} />
                 </div>
             </div>
