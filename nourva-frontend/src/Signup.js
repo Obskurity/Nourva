@@ -45,7 +45,7 @@ export default function Signup() {
 
                 setTimeout(() => {
                     navigate('/user-initiation');
-                }, 500);       
+                }, 3000);       
             }
             else{
                 
