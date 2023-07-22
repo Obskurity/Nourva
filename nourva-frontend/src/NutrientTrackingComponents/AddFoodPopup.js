@@ -3,11 +3,12 @@ import React, { useState } from 'react';
 const AddFoodPopup = ({ onClose, onAddFood }) => {
     const [foodName, setFoodName] = useState('');
     const [measurement, setMeasurement] = useState('');
+    const [calories, setCalories] = useState('');
 
     const handleAddFood = () => {
         // Perform any validation or API calls here if needed
         // For this example, we'll just pass the foodName and measurement back to the parent component
-        onAddFood(foodName, measurement);
+        onAddFood(foodName, measurement, calories);
         onClose();
     };
 
@@ -26,6 +27,20 @@ const AddFoodPopup = ({ onClose, onAddFood }) => {
                         value={measurement}
                         onChange={(e) => setMeasurement(e.target.value)}
                     />
+                    <label>
+                        g
+                    </label>
+                </label>
+                <label>
+                    Calories:
+                    <input
+                        type="number"
+                        value={calories}
+                        onChange={(e) => setCalories(e.target.value)}
+                    />
+                    <label>
+                        cals
+                    </label>
                 </label>
                 <div className="buttons">
                     <button type="button" onClick={handleAddFood}>

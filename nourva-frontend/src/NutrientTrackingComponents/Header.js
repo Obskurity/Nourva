@@ -7,10 +7,10 @@ const Header = (onAddFood) => {
     // Add logic to handle the search and display the search results in a table.
     const [searchResults, setSearchResults] = useState([])
     let tableData = [
-        { name: 'Apple', calories: 52 },
-        { name: 'Banana', calories: 96 },
-        { name: 'Chicken Breast', calories: 165 },
-        { name: 'Rice (cooked)', calories: 130 },
+        { name: 'Apple', measurement: 5, calories: 52 },
+        { name: 'Banana', measurement: 5, calories: 96 },
+        { name: 'Chicken Breast', measurement: 5, calories: 165 },
+        { name: 'Rice (cooked)', measurement: 5, calories: 130 },
     ];
 
     // useEffect(() => {
@@ -42,6 +42,7 @@ const Header = (onAddFood) => {
                 <thead>
                     <tr>
                         <th>Food</th>
+                        <th>Measurement</th>
                         <th>Calories</th>
                     </tr>
                 </thead>
@@ -49,12 +50,13 @@ const Header = (onAddFood) => {
                     {searchResults.map((food, index) => (
                         <tr key={index}>
                             <td>{food.name}</td>
-                            <td>{food.calories}</td>
+                            <td>{food.measurement} g</td>
+                            <td>{food.calories} cals</td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-            <button onClick={onAddFood}>Add Food</button>
+            <button onClick={onAddFood.onAddFood}>Add Food</button>
         </div>
     );
 };
