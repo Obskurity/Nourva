@@ -107,6 +107,11 @@ app.get('/query-foods', authenticateToken, (req, res) => {
 
 })
 
+app.get('/get-TDEE', authenticateToken, (req, res) => {
+  var user = db.collection('users').findOne({username: (jwt.decode(req.body.user)).name});
+  console.log(user);
+})
+
 function calculateTDEE(weight, height, age, sex, bodyfat = 20) {
   var tdee;
   if (sex === "male") {
