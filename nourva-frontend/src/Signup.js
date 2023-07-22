@@ -41,7 +41,7 @@ export default function Signup() {
                 document.getElementById("password").value = '';
                 document.getElementById("secondPassword").value = '';
 
-                localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(response.accessToken));
+                localStorage.setItem(LOCAL_STORAGE_KEY, response.data.accessToken);
 
                 setTimeout(() => {
                     navigate('/user-initiation');
