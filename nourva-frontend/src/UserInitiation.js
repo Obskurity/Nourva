@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './UserInitiation.css';
+import axios from "axios";
 
 export default function UserInitiation() {
   const [firstName, setFirstName] = useState('');
@@ -11,6 +12,8 @@ export default function UserInitiation() {
   const [bodyFat, setBodyFat] = useState('');
   const [activityLevel, setActivityLevel] = useState('');
   const [goal, setGoal] = useState('');
+  const reqLink = "http://127.0.0.1:5000/addUserData";
+  const LOCAL_STORAGE_KEY = "Nourva.AT";
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -27,17 +30,32 @@ export default function UserInitiation() {
     console.log(`Body Fat: ${bodyFat}`);
     console.log(`Activity Level: ${activityLevel}`);
     console.log(`Goal: ${goal}`);
-
-    // Reset the form (optional)
-    setFirstName('');
-    setLastName('');
-    setAge('');
-    setSex('');
-    setHeight('');
-    setWeight('');
-    setBodyFat('');
-    setActivityLevel('');
-    setGoal('');
+    axios.post(reqLink, {
+      authorization: localStorage.getItem(LOCAL_STORAGE_KEY),
+      firstName: firstName,
+      lastName: lastName,
+      age: age,
+      sex: sex,
+      height: height,
+      weight: weight,
+      bodyfat: bodyFat,
+      activityLevel: activityLevel,
+      goal: goal
+    }).then((response) => {
+      if(response.status === 200){
+           // Reset the form (optional)
+          setFirstName('');
+          setLastName('');
+          setAge('');
+          setSex('');
+          setHeight('');
+          setWeight('');
+          setBodyFat('');
+          setActivityLevel('');
+          setGoal('');
+      }
+      console.log(response);
+    });  
   };
 
   const handleReset = () => {

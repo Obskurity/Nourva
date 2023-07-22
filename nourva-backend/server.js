@@ -94,8 +94,7 @@ app.post('/login', async (req, res) => {
 });
 
 function authenticateToken(req, res, next){
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
+  const token = req.body.authorization;
   if(token == null) return res.sendStatus(401);
 
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
@@ -108,6 +107,30 @@ function authenticateToken(req, res, next){
 // replace /path with whatever is supposed to get access to
 app.get('/query-foods', authenticateToken, (req, res) => {
   
+})
+
+app.post('/addUserData', authenticateToken, (req, res) => {
+  const {authorization, firstName, lastName, age, sex, height, weight, bodyfat, activityLevel, goal} = req.body;
+
+  var user = jwt.decode(authorization);
+  if(user){
+    const result = db.collection('users').updateOne({username: user.name},
+    {
+      $set: {
+        firstName: firstName,
+        lastName: lastName,
+        age: age,
+        sex: sex,
+        height: height,
+        weight: weight,
+        bodyfat: bodyfat,
+        activityLevel: activityLevel,
+        goal: goal
+      },
+    })
+
+    res.sendStatus(200);
+  };
 })
 
 function generateAccessToken(user){
