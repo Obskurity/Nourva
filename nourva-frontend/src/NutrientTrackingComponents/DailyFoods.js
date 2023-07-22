@@ -30,7 +30,7 @@ const DailyFoods = () => {
     };
 
     return (
-        <div>
+        <div className='dateContainer'>
             <button onClick={handlePreviousDate}>Previous</button>
             <h2 onClick={handleDatePickerClick}>{pickedDate.format(dateFormatString)}</h2>
             <button onClick={handleNextDate}>Next</button>

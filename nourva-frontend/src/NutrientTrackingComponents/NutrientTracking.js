@@ -3,7 +3,8 @@ import CalorieProgressBar from './CalorieProgressBar'
 import Header from './Header'
 import QueryFood from './DailyFoods'
 import AddFoodPopup from './AddFoodPopup'
-
+import './NutrientTracking.css'
+import ProgressBar from "@ramonak/react-progress-bar";
 export default function NutrientTracking() {
     const [showPopup, setShowPopup] = useState(false);
 
@@ -17,14 +18,24 @@ export default function NutrientTracking() {
 
     return (
         <div>
+            <div className='progressContainer'>
+                <ProgressBar
+                    completed={75}
+                    customLabel= {2000}
+                    maxCompleted={100}
+                    bgColor='#f1356d'
+                   
+                   />
+            </div>
             <Header onAddFood={() => setShowPopup(true)} />
+
             <div style={{ display: 'flex' }}>
                 <QueryFood />
-                <div>
-                    <CalorieProgressBar goal={2000} consumed={1500} />
-                </div>
+
             </div>
+            <div className='overlay'>
             {showPopup && <AddFoodPopup onClose={() => setShowPopup(false)} onAddFood={handleAddFood} />}
+            </div>
         </div>
     )
 }
