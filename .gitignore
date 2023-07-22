@@ -1,15 +1,5 @@
-<<<<<<< HEAD
 /.vs/VSWorkspaceState.json
 /.vs/Nourva/v17/.suo
 /nourva-backend/.env
 /.vs/Nourva/v17/.wsuo
-/nourva-backend/.env
-=======
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
-
 /.vs/VSWorkspaceState.json
-/.vs/Nourva/v17/.suo
->>>>>>> commit more stuff for rebase #5
-/.vs/Nourva/v17/.wsuo
