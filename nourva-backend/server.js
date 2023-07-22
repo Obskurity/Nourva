@@ -87,10 +87,8 @@ app.post('/login', async (req, res) => {
   //const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
   //refreshTokens.push(refreshToken);
 
-  console.log("post request successful");
-
   //res.json({accessToken: accessToken, refreshToken: refreshToken});
-  res.json({accessToken: accessToken});
+  res.json({accessToken: accessToken, message: "Login sucessful!"});
 });
 
 function authenticateToken(req, res, next){
