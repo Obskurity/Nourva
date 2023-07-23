@@ -92,7 +92,7 @@ app.post('/login', async (req, res) => {
 });
 
 function authenticateToken(req, res, next) {
-  const token = req.body.authorization;
+  const token = req.body.authorization || req.query.authorization;
   if (token == null) return res.sendStatus(401);
 
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
@@ -107,9 +107,16 @@ app.get('/query-foods', authenticateToken, (req, res) => {
 
 })
 
-app.get('/get-TDEE', authenticateToken, (req, res) => {
-  var user = db.collection('users').findOne({username: (jwt.decode(req.body.user)).name});
-  console.log(user);
+app.get('/get-user-data', authenticateToken, async (req, res) => {
+
+  var user = await db.collection('users').findOne({username: (jwt.decode(req.query.authorization)).name});
+
+  if(user){
+    res.send(user);
+  }
+  else{
+    res.send({message: "user does not exist"});
+  }
 })
 
 function calculateTDEE(weight, height, age, sex, bodyfat = 20) {
@@ -126,13 +133,13 @@ function calculateTDEE(weight, height, age, sex, bodyfat = 20) {
   return tdee;
 }
 
-app.post('/addUserData', authenticateToken, (req, res) => {
+app.post('/add-user-data', authenticateToken, async (req, res) => {
   const { authorization, firstName, lastName, age, sex, height, weight, bodyfat, activityLevel, goal } = req.body;
 
   var user = jwt.decode(authorization);
   if (user) {
     var tdee = calculateTDEE(weight, height, age, sex, bodyfat);
-    const result = db.collection('users').updateOne({ username: user.name },
+    const result = await db.collection('users').updateOne({ username: user.name },
       {
         $set: {
           firstName: firstName,

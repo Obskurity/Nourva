@@ -13,7 +13,7 @@ export default function UserInitiation() {
   const [bodyFat, setBodyFat] = useState('');
   const [activityLevel, setActivityLevel] = useState('');
   const [goal, setGoal] = useState('');
-  const reqLink = "http://127.0.0.1:5000/addUserData";
+  const reqLink = "http://127.0.0.1:5000/add-user-data";
   const LOCAL_STORAGE_KEY = "Nourva.AT";
 
   const navigate = useNavigate();
