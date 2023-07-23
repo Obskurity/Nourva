@@ -3,16 +3,14 @@ import axios from 'axios';
 import AddFoodPopup from './AddFoodPopup';
 import './NutrientTracking.css'
 
-const Header = (onAddFood) => {
+const Header = (onAddFood, tableData) => {
     const axios = require('axios');
     // Add logic to handle the search and display the search results in a table.
-    const [searchResults, setSearchResults] = useState([])
-    let tableData = [
-        { name: 'Apple', measurement: 5, calories: 52 },
-        { name: 'Banana', measurement: 5, calories: 96 },
-        { name: 'Chicken Breast', measurement: 5, calories: 165 },
-        { name: 'Rice (cooked)', measurement: 5, calories: 130 },
-    ];
+    const [searchResults, setSearchResults] = useState([{ name: 'Apple', measurement: 5, calories: 52 },
+    { name: 'Banana', measurement: 5, calories: 96 },
+    { name: 'Chicken Breast', measurement: 5, calories: 165 },
+    { name: 'Rice (cooked)', measurement: 5, calories: 130 }])
+    
 
     // useEffect(() => {
     //     tableData = queryAllMongoFood();
@@ -22,12 +20,19 @@ const Header = (onAddFood) => {
         // axios.get
     }
 
+    // useEffect({
+        
+
+    // }, []);
+
     const handleSearch = (query) => {
+        console.log(tableData);
         const results = tableData.filter((food) =>
             food.name.toLowerCase().includes(query.toLowerCase())
         );
         setSearchResults(results);
     };
+    
 
     // const handleAddFood = () => {
 

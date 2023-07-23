@@ -41,6 +41,13 @@ app.get("/", (req, res) => {
   res.send("Hello World!")
 })
 
+app.post('/add-food-to-database', authenticateToken, async (req, res) => { 
+  var food = await db.collection('foods').insertOne({ name: req.body.foodName, measurement: req.body.measurement, calories: req.body.calories});
+  if(food){
+    res.sendStatus(200);
+  }
+})
+
 app.post('/register', async (req, res) => {
   const { username, password } = req.body;
 

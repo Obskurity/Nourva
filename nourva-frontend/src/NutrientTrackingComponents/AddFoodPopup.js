@@ -9,6 +9,7 @@ const AddFoodPopup = ({ onClose, onAddFood }) => {
         // Perform any validation or API calls here if needed
         // For this example, we'll just pass the foodName and measurement back to the parent component
         onAddFood(foodName, measurement, calories);
+        
         onClose();
     };
 

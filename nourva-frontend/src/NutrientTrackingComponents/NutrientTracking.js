@@ -10,20 +10,33 @@ import axios from "axios";
 export default function NutrientTracking() {
     const [showPopup, setShowPopup] = useState(false);
 
+    const [tableData, setTableData] = useState([]);
 
     const handleAddFood = (foodName, measurement, calories) => {
         // Handle the food addition logic here (e.g., API calls or updating state)
-        console.log('Food Name:', foodName);
-        console.log('Measurement:', measurement);
-        console.log('Calories:', calories);
+        axios.post("http://127.0.0.1:5000/add-food-to-database", {
+            authorization: localStorage.getItem(LOCAL_STORAGE_KEY),
+            foodName: foodName,
+            measurement: measurement,
+            calories: calories
+          }).then((response) => {
+            if(response.status === 200){
+                // some success message
+                let temp = tableData;
+                temp = [ ...temp, {foodName: {calories: calories, measurement: measurement}}];
+                setTableData(temp);
+            }
+            console.log(response);
+          }); 
     };
 
     const LOCAL_STORAGE_KEY = "Nourva.AT";
     const reqLink = "http://127.0.0.1:5000/get-user-data";
     var flag = false;
 
-    var maxCalories;
-    var currentCalories;
+    const [maxCalories, setMaxCalories] = useState('');
+    const [currentCalories, setCurrentCalories] = useState('');
+
     var data;
 
     axios.get(reqLink, {
@@ -35,8 +48,8 @@ export default function NutrientTracking() {
             data = response.data;
             console.log(response.data);
             flag = true;
-            maxCalories = response.data.tdee;
-            currentCalories = response.data.dailyCalories;  
+            setMaxCalories(response.data.tdee);
+            setCurrentCalories( response.data.dailyCalories);
         }
         console.log(response);
       });
@@ -52,7 +65,7 @@ export default function NutrientTracking() {
                    
                    />
             </div>
-            <Header onAddFood={() => setShowPopup(true)} />
+            <Header onAddFood={() => setShowPopup(true)} tableData={tableData}/>
 
             <div style={{ display: 'flex' }}>
                 <QueryFood />
