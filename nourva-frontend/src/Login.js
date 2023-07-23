@@ -35,7 +35,7 @@ export default function Login() {
 
     return (
         <>
-            <div class="container">
+            <div className="container">
                 <h2>Login</h2>
                 <form> 
                     <input type="text" name="username" id="username" placeholder="Username" required />
@@ -44,7 +44,7 @@ export default function Login() {
                 </form>
             </div>
             <br></br>
-            <div class="container2">
+            <div className="container2">
                 <label>Don't have an account? &nbsp;</label>
                 <a href="/signup">Sign Up</a>
         </div>
